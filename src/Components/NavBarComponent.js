@@ -3,6 +3,12 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 
 import From from 'react-bootstrap/Form'
+import {
+  BrowserRouter as Router,
+//   Switch,
+//   Route,
+  Link
+} from "react-router-dom";
 
 const NavBarComponent = () => {
     return (
@@ -15,6 +21,7 @@ const NavBarComponent = () => {
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"/>
                     </Button>
+                    <Router>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
@@ -24,21 +31,21 @@ const NavBarComponent = () => {
                                 <a className="nav-link" to="#">Link</a>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                <Link className="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                     >
                                     sgdfhg
-                                </a>
+                                </Link>
                                 <ul className="dropdown-menu" >
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    <li><Link className="dropdown-item" href="#">Action</Link></li>
+                                    <li><Link className="dropdown-item" href="#">Another action</Link></li>
                                     <li>
                                         <hr className="dropdown-divider"/>
                                     </li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                    <li><Link className="dropdown-item" href="#">Something else here</Link></li>
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link disabled" to="#" >Disabled</a>
+                                <Link className="nav-link disabled" to="#" >Disabled</Link>
                             </li>
                         </ul>
                         <From className="d-flex">
@@ -47,11 +54,26 @@ const NavBarComponent = () => {
                         </From>
                         <Navbar.Collapse className="justify-content-end">
                             <Navbar.Text>
-                                Signed in as: <a href="#login">Mark Otto</a>
+                                Signed in as: <Link to="/login">Mark Otto</Link>
                             </Navbar.Text>
                         </Navbar.Collapse>
+
+                        {/* <Switch>
+                            <Route path="/about">
+                            <About />
+                            </Route>
+                            <Route path="/users">
+                            <Users />
+                            </Route>
+                            <Route path="/">
+                            <Home />
+                            </Route>
+                        </Switch> */}
                     </div>
-                </div>
+                
+                    </Router>
+                    
+                    </div>
             </Navbar>
 
         </div>
