@@ -1,12 +1,13 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
+import Navbar from 'react-bootstrap/Navbar';
 
 import From from 'react-bootstrap/Form'
 
 const NavBarComponent = () => {
     return (
         < div >
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <Navbar className="navbar navbar-expand-lg navbar-light bg-light" fixed="top">
                 <div className="container-fluid">
                     <a className="navbar-brand" to="#"><b>TNT</b> <sub>Tech Next Task</sub></a>
                     <Button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -42,11 +43,16 @@ const NavBarComponent = () => {
                         </ul>
                         <From className="d-flex">
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                                <button className="btn btn-outline-success" type="submit">Search</button>
+                                <Button className="btn btn-outline-success" type="submit">Search</Button>
                         </From>
+                        <Navbar.Collapse className="justify-content-end">
+                            <Navbar.Text>
+                                Signed in as: <a href="#login">Mark Otto</a>
+                            </Navbar.Text>
+                        </Navbar.Collapse>
                     </div>
                 </div>
-            </nav>
+            </Navbar>
 
         </div>
     )

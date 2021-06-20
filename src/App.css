@@ -1,5 +1,9 @@
 .App {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100vw;
 }
 
 .App-logo {
@@ -35,4 +39,41 @@
   to {
     transform: rotate(360deg);
   }
+}
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  background-color: #dddddd;
+  border-radius: 5px;
+  border: 1px solid #ffffff;
+  color: rgb(112, 0, 0);
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: white!important;
+  background-color: #000000;
+}
+
+.paginationActive a {
+  color: white !important;
+  background-color: #000000;
+}
+
+.paginationDisabled a {
+  color: rgb(255, 255, 255)!important;
+  background-color: rgb(112, 0, 0);
+}
+
+.content{
+  margin-top: 100px;
+  
 }
