@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate'
-// import JsonData from './../data/user_list.json'
 import axios from 'axios';
+import { Link } from "react-router-dom";
+
 
 
 export const AllPost = () => {
@@ -26,12 +27,13 @@ export const AllPost = () => {
     const postPerPage = 10;
     const pagesVisited = pageNumber * postPerPage;
     const pageCount = Math.ceil(post.length / postPerPage);
-    const post_view = id =>{
-
-        console.log(id)
-    }
-
+    // const post_view = id =>{
+    //
+    //     console.log(id)
+    // }
+    // const history = useHistory();
     const displayUsers = post.slice(pagesVisited, pagesVisited + postPerPage).map((post) => {
+
         return (
             <div key={post.id}>
                 <li className="list-group-item d-flex justify-content-between align-items-start">
@@ -39,11 +41,20 @@ export const AllPost = () => {
                         <span className="fw-bold">{post.title}</span><span><sub>Author {post.author_id} .  posted in {post.created_at} </sub></span>
                         <div>{post.description}</div>
                     </div>
-                    <span className="btn btn-sm  btn-primary rounded-pill" onClick={() => post_view(post.id)}>View Post</span>
+                    <Link to={`/details/${post.author_id}`} >View Post</Link>
+
+                        {/*<span className="btn btn-sm  btn-primary rounded-pill" onClick={() => { console.log(3);history.push('/details') }}>View Post</span>*/}
+
+
+
                 </li>
             </div>
         );
     });
+
+    // function Details() {
+    //     return <h2>Home</h2>;
+    // }
 
 
     const changePage = ({ selected }) => {
