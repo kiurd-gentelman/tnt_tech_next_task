@@ -37,16 +37,22 @@ export const AllPost = () => {
         return (
             <div key={post.id}>
                 <li className="list-group-item d-flex justify-content-between align-items-start">
-                    <div className="ms-2 me-auto">
-                        <span className="fw-bold">{post.title}</span><span><sub>Author {post.author_id} .  posted in {post.created_at} </sub></span>
-                        <div>{post.description}</div>
-                    </div>
-                    <Link to={`/details/${post.author_id}`} >View Post</Link>
-
+                    <table className="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div className="ms-2 me-auto">
+                                        <span className="fw-bold">{post.title} . </span><span><sub>Author {post.author_id} .  posted in {post.created_at} </sub></span>
+                                        <div>{(post.description.length >200) ? post.description.substring(0,200):post.description}</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <Link to={`/details/${post.author_id}`} >View</Link>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                         {/*<span className="btn btn-sm  btn-primary rounded-pill" onClick={() => { console.log(3);history.push('/details') }}>View Post</span>*/}
-
-
-
                 </li>
             </div>
         );
