@@ -30,7 +30,8 @@ export const Login = ()=>{
             email: email,
             password: password
         }).then(function (response) {
-                console.log(response);
+            localStorage.setItem('token', response.data.token);
+                // console.log(response.data.token);
             })
             .catch(function (error) {
                 console.log(error);
@@ -73,7 +74,7 @@ export const Login = ()=>{
             password: reg_password,
             website: reg_website
         }).then(function (response) {
-            if (response.status == 201){
+            if (response.status === 201){
                 toast("registration complete")
                 reg_name = ""
                 reg_email=""

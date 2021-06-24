@@ -16,14 +16,14 @@ export const AllPost = () => {
     const [post, setPost] = useState([]);
     const [visible, setVisible] = useState(1);
     const getAllNotes = () => {
-            axios.get(`http://127.0.0.1:8000/api/all-post`)
-                .then(res => {
-                    const persons = res.data;
-                    allUser = persons.result;
-                    setPost(allUser )
-                })
+        axios.get(`http://127.0.0.1:8000/api/all-post`)
+            .then(res => {
+                const persons = res.data;
+                allUser = persons.result;
+                setPost(allUser )
+            })
 
-        }
+    }
 
     // const [pageNumber, setPageNumber] = useState(0);
     // const postPerPage = 10;
@@ -41,20 +41,20 @@ export const AllPost = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-start">
                     <table className="table table-bordered">
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div className="ms-2 me-auto">
-                                        <span className="fw-bold">{post.title} . </span><span><sub>Author {post.author_id} .  posted in {post.created_at} </sub></span>
-                                        <div>{(post.description.length >200) ? post.description.substring(0,200):post.description}</div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <Link to={`/details/${post.author_id}`} >View</Link>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <div className="ms-2 me-auto">
+                                    <span className="fw-bold">{post.title} . </span><span><sub>Author {post.author_id} .  posted in {post.created_at} </sub></span>
+                                    <div>{(post.description.length >200) ? post.description.substring(0,200):post.description}</div>
+                                </div>
+                            </td>
+                            <td>
+                                <Link to={`/details/${post.author_id}`} >View</Link>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
-                        {/*<span className="btn btn-sm  btn-primary rounded-pill" onClick={() => { console.log(3);history.push('/details') }}>View Post</span>*/}
+                    {/*<span className="btn btn-sm  btn-primary rounded-pill" onClick={() => { console.log(3);history.push('/details') }}>View Post</span>*/}
                 </li>
             </div>
         );
@@ -74,14 +74,14 @@ export const AllPost = () => {
 
     return (
         <div >
-        <ol className = "list-group list-group-numbered" > { displayUsers } </ol>
+            <ol className = "list-group list-group-numbered" > { displayUsers } </ol>
             <div className="mt-3 w-100 d-flex justify-content-center">
                 <Button className="btn btn-sm btn-info" onClick={loadDate}>Load More</Button>
             </div>
 
 
 
-        {/*<ReactPaginate previousLabel = { "Previous" }
+            {/*<ReactPaginate previousLabel = { "Previous" }
         nextLabel = { "Next" }
         pageCount = { pageCount }
         onPageChange = { changePage }
@@ -90,7 +90,7 @@ export const AllPost = () => {
         nextLinkClassName = { "nextBttn" }
         disabledClassName = { "paginationDisabled" }
         activeClassName = { "paginationActive" }/>*/}
-                </div >
+        </div >
     )
 }
 

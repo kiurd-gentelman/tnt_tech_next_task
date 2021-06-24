@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 // import Nav from 'react-bootstrap/Nav';
@@ -6,12 +6,13 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 import { Link } from "react-router-dom";
 
-const NavBarComponent = () => {
+export const NavBarComponent = (props) => {
+    const {auth} = props;
     return (
         < div >
             <Navbar className="navbar navbar-expand-lg navbar-light bg-light" fixed="top">
                     <div className="container-fluid">
-                        <a className="navbar-brand" to="#"><b>TNT</b> <sub>Tech Next Task</sub></a>
+                        <Link className="navbar-brand" to="#"><b>TNT</b> <sub>Tech Next Task</sub></Link>
                         <Button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -43,15 +44,18 @@ const NavBarComponent = () => {
                                     </li>
                                 </ul>
                                 <Navbar.Collapse className="justify-content-end">
-                                    <Link className="nav-item nav-link" to="/login" >Login</Link>
-                                    <Navbar.Text>
-                                        <NavDropdown title="Link" id="navbarScrollingDropdown" >
-                                            <NavDropdown.Item to="#action3">Profile</NavDropdown.Item>
-                                            <NavDropdown.Item href="#action4">Logout</NavDropdown.Item>
-                                            <NavDropdown.Divider />
-                                            <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
-                                        </NavDropdown>
-                                    </Navbar.Text>
+                                    {(auth == null)?
+                                        <Link className="nav-item nav-link" to="/login" >Login / Registration</Link> :
+                                        <Navbar.Text>
+                                            <NavDropdown title={'Hello ' + auth.name} id="navbarScrollingDropdown" >
+                                                <NavDropdown.Item to="/dashboard">Dashboard</NavDropdown.Item>
+                                                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                                                <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+                                                <NavDropdown.Divider />
+                                                <NavDropdown.Item href="#action5">Something else here</NavDropdown.Item>
+                                            </NavDropdown>
+                                        </Navbar.Text>
+                                    }
                                 </Navbar.Collapse>
                             </div>
 

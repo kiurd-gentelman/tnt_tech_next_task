@@ -4,8 +4,7 @@ class Test extends Component {
     render() {
         return super.render(
             <div>
-                <span><sub>Author {post.author_id} .  posted in : {post.created_at} </sub></span>
-                <div> {post.description} </div>
+               <h3>amr profile</h3>
             </div>
 
 
