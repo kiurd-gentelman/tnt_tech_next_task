@@ -31,7 +31,11 @@ function App() {
                 // allUser = persons.result;
                 console.log(persons.data);
                 setAuth(persons.data )
-            })
+            }).catch(function (error) {
+            // handle error
+            console.log(error);
+            setAuth(null )
+        })
 
     }
   return (

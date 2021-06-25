@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 export const NavBarComponent = (props) => {
     const {auth} = props;
+    console.log(auth)
     return (
         < div >
             <Navbar className="navbar navbar-expand-lg navbar-light bg-light" fixed="top">
@@ -58,7 +59,6 @@ export const NavBarComponent = (props) => {
                                     }
                                 </Navbar.Collapse>
                             </div>
-
                     </div>
                 </Navbar>
         </div>
