@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useParams} from "react-router-dom"
+import {Link, useParams} from "react-router-dom"
 import axios from "axios";
 
 
@@ -23,7 +23,9 @@ export const PostDetails = () => {
 
     return(
         <div>
-            <div className="card">
+            <h2> Post Details</h2>
+            <Link className="btn btn-sm btn-success"  to="/dashboard" >Go to post</Link>
+            <div className="card mt-5">
                 <div className="card-body">
                     <h5 className="card-title">{post.title}</h5>
                     <p className="card-text">{post.description}</p>

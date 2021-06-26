@@ -5,6 +5,7 @@ import axios from 'axios';
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import { ToastContainer, toast } from 'react-toastify';
+import { useHistory } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 
 export const Login = ()=>{
@@ -23,6 +24,7 @@ export const Login = ()=>{
         // console.log(event.target.value)
         password = (event.target.value)
     }
+    const history = useHistory();
     const LoginFormSubmit = (event)=>{
         console.log(3);
         event.preventDefault();
@@ -32,6 +34,9 @@ export const Login = ()=>{
         }).then(function (response) {
             localStorage.setItem('token', response.data.token);
                 // console.log(response.data.token);
+            history.push("/");
+            window.location.reload();
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -90,8 +95,6 @@ export const Login = ()=>{
     }
     return(
         <div>
-
-
             <Tabs
                 id="controlled-tab-example">
                 <Tab eventKey="home" title="Home">

@@ -49,7 +49,7 @@ export const AllPost = () => {
                                     </div>
                                 </td>
                                 <td>
-                                    <Link to={`/details/${post.author_id}`} >View</Link>
+                                    <Link to={`/post-details/${post.author_id}`} >View</Link>
                                 </td>
                             </tr>
                         </tbody>
@@ -74,23 +74,12 @@ export const AllPost = () => {
 
     return (
         <div >
-        <ol className = "list-group list-group-numbered" > { displayUsers } </ol>
+            <ol className = "list-group list-group-numbered" > { displayUsers } </ol>
             <div className="mt-3 w-100 d-flex justify-content-center">
                 <Button className="btn btn-sm btn-info" onClick={loadDate}>Load More</Button>
             </div>
 
-
-
-        {/*<ReactPaginate previousLabel = { "Previous" }
-        nextLabel = { "Next" }
-        pageCount = { pageCount }
-        onPageChange = { changePage }
-        containerClassName = { "paginationBttns" }
-        previousLinkClassName = { "previousBttn" }
-        nextLinkClassName = { "nextBttn" }
-        disabledClassName = { "paginationDisabled" }
-        activeClassName = { "paginationActive" }/>*/}
-                </div >
+        </div >
     )
 }
 
