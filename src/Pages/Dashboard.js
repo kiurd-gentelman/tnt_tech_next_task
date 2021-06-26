@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {toast} from "react-toastify";
 
 
 
 export const AllPost = () => {
+    const history = useHistory();
     let allUser = '';
     useEffect(() => {
         getAllNotes();
@@ -26,16 +28,24 @@ export const AllPost = () => {
             })
 
     }
+    const deletePost = ( productId)=>event =>{
+        console.log(event);
+        // axios.get('http://127.0.0.1:8000/api/post-delete/'+productId, {
+        //     headers: {
+        //         "Authorization" : `Bearer ${localStorage.getItem('token')}`
+        //     },
+        // }).then(function (response) {
+        //     if (response.status == '200'){
+        //         toast("registration complete")
+        //         history.push("/dashboard");
+        //         console.log(response);
+        //     }
+        //
+        // }).catch(function (error) {
+        //     console.log(error);
+        // });
+    }
 
-    // const [pageNumber, setPageNumber] = useState(0);
-    // const postPerPage = 10;
-    // const pagesVisited = pageNumber * postPerPage;
-    // const pageCount = Math.ceil(post.length / postPerPage);
-    // const post_view = id =>{
-    //
-    //     console.log(id)
-    // }
-    // const history = useHistory();
     const displayUsers = post.slice(0,visible).map((post) => {
 
         return (
@@ -52,9 +62,9 @@ export const AllPost = () => {
                             </td>
                             <td>
                                 <ButtonGroup aria-label="Basic example">
-                                <Link className="btn btn-sm btn-info" to={`/post-details/${post.author_id}`} >View</Link>
-                                <Link className="btn btn-sm btn-warning" to={`/post-edit/${post.author_id}`} >Edit</Link>
-                                <Link className="btn btn-sm btn-danger" to={`/post-delete/${post.author_id}`} >Delete</Link>
+                                <Link className="btn btn-sm btn-info" to={`/post-details/${post.id}`} >View</Link>
+                                <Link className="btn btn-sm btn-warning" to={`/post-edit/${post.id}`} >Edit</Link>
+                                <a className="btn btn-sm btn-danger" onClick={()=>{ if(window.confirm('Delete the item?')) {deletePost(this,post.id)}}} >Delete</a>
                                 </ButtonGroup>
                             </td>
                         </tr>

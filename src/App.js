@@ -12,6 +12,7 @@ import Footer from './Components/FooterComponents'
 import AllPost from './Pages/AllPost'
 import PostDetails from './Pages/Post/PostDetails'
 import CreatePost from './Pages/Post/CreatePost'
+import PostEdit from './Pages/Post/PostEdit'
 
 import Login from './Pages/Login'
 import Dashboard from './Pages/Dashboard'
@@ -52,7 +53,7 @@ function App() {
           <div className="container content">
               <Switch>
                   <Route exact path="/">
-                      <AllPost/>
+                      <AllPost />
                   </Route>
                   <Route exact path="/login">
                       <Login/>
@@ -63,8 +64,11 @@ function App() {
                   <Route exact path="/post-create">
                       <CreatePost/>
                   </Route>
+                  <Route exact path="/post-edit/:productId">
+                      <PostEdit/>
+                  </Route>
                   <Route   path="/post-details/:productId">
-                      <PostDetails />
+                      <PostDetails auth={auth} />
                   </Route>
                   {/*{(auth 1= null)}*/}
               </Switch>

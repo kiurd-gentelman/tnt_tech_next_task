@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 
 
-export const AllPost = () => {
+export const AllPost = (props) => {
     let allUser = '';
     useEffect(() => {
         getAllNotes();
@@ -49,7 +49,7 @@ export const AllPost = () => {
                                     </div>
                                 </td>
                                 <td>
-                                    <Link to={`/post-details/${post.author_id}`} >View</Link>
+                                    <Link to={`/post-details/${post.id}`} >View</Link>
                                 </td>
                             </tr>
                         </tbody>
