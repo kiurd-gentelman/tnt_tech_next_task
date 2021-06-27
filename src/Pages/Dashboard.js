@@ -17,7 +17,7 @@ export const AllPost = () => {
     }, []);
 
     const [post, setPost] = useState([]);
-    const [visible, setVisible] = useState(1);
+    const [visible, setVisible] = useState(10);
     const getAllNotes = () => {
         axios.get(`http://127.0.0.1:8000/api/user-post`,
             { headers: {"Authorization" : `Bearer ${localStorage.getItem('token')}`} })
@@ -25,25 +25,30 @@ export const AllPost = () => {
                 const persons = res.data;
                 allUser = persons.result;
                 setPost(allUser )
-            })
+            }).catch(function (error) {
+            console.log(error);
+            history.push("/login");
+        });
 
     }
-    const deletePost = ( productId)=>event =>{
-        console.log(event);
-        // axios.get('http://127.0.0.1:8000/api/post-delete/'+productId, {
-        //     headers: {
-        //         "Authorization" : `Bearer ${localStorage.getItem('token')}`
-        //     },
-        // }).then(function (response) {
-        //     if (response.status == '200'){
-        //         toast("registration complete")
-        //         history.push("/dashboard");
-        //         console.log(response);
-        //     }
-        //
-        // }).catch(function (error) {
-        //     console.log(error);
-        // });
+    const deletePost = ( id) =>{
+        const newList = post.filter((item) => item.id !== id);
+        setPost(newList);
+        axios.get('http://127.0.0.1:8000/api/post-delete/'+id, {
+            headers: {
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
+            },
+        }).then(function (response) {
+            if (response.status === 200){
+                toast("registration complete")
+                history.push("/dashboard");
+                console.log(response);
+            }
+
+        }).catch(function (error) {
+            console.log(error);
+            history.push("/login");
+        });
     }
 
     const displayUsers = post.slice(0,visible).map((post) => {
@@ -64,7 +69,7 @@ export const AllPost = () => {
                                 <ButtonGroup aria-label="Basic example">
                                 <Link className="btn btn-sm btn-info" to={`/post-details/${post.id}`} >View</Link>
                                 <Link className="btn btn-sm btn-warning" to={`/post-edit/${post.id}`} >Edit</Link>
-                                <a className="btn btn-sm btn-danger" onClick={()=>{ if(window.confirm('Delete the item?')) {deletePost(this,post.id)}}} >Delete</a>
+                                <a className="btn btn-sm btn-danger" onClick={()=>{ if(window.confirm('Delete the item?')) {deletePost(post.id)}}} >Delete</a>
                                 </ButtonGroup>
                             </td>
                         </tr>
@@ -94,7 +99,10 @@ export const AllPost = () => {
             <Link className="btn btn-sm btn-success"  to="/post-create" >Create</Link>
             <ol className = "list-group list-group-numbered mt-5" > { displayUsers } </ol>
             <div className="mt-3 w-100 d-flex justify-content-center">
-                <Button className="btn btn-sm btn-info" onClick={loadDate}>Load More</Button>
+                {(post.length >visible)?
+                    <Button className="btn btn-sm btn-info" onClick={loadDate}>Load More</Button> :''
+                }
+
             </div>
 
 

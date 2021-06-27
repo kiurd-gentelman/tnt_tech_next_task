@@ -37,7 +37,7 @@ export  const CreatePost = () =>{
             },
 
         }).then(function (response) {
-            if (response.status == '200'){
+            if (response.status === 200){
                 toast("registration complete")
                 history.push("/dashboard");
                 console.log(response.status);
@@ -46,6 +46,7 @@ export  const CreatePost = () =>{
         })
             .catch(function (error) {
                 console.log(error);
+                history.push("/login");
             });
     }
     return (

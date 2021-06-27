@@ -24,7 +24,7 @@ export const NavBarComponent = (props) => {
     //         show_permission = true;
     //     }
     // }
-    console.log(auth)
+    // console.log(auth)
     const logout = ()=>{
         axios.post(`http://127.0.0.1:8000/api/logout`,
             { headers: {"Authorization" : `Bearer ${localStorage.getItem('token')}`} })
@@ -34,11 +34,11 @@ export const NavBarComponent = (props) => {
                 localStorage.setItem('token', null);
                 history.push("/");
                 window.location.reload();
-                console.log(persons.data);
+                // console.log(persons.data);
                 // setAuth(persons.data )
             }).catch(function (error) {
             // handle error
-            console.log(error);
+            // console.log(error);
             // setAuth(null )
         })
     }
@@ -60,6 +60,12 @@ export const NavBarComponent = (props) => {
                                     {(auth != null)?
                                         <li className="nav-item">
                                             <Link className="nav-link active"  to="/dashboard">Dashboard</Link>
+                                        </li> :
+                                        ''
+                                    }
+                                    {(auth != null)?
+                                        <li className="nav-item">
+                                            <Link className="nav-link active"  to="/user-list">Users</Link>
                                         </li> :
                                         ''
                                     }

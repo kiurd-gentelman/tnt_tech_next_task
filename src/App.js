@@ -13,6 +13,7 @@ import AllPost from './Pages/AllPost'
 import PostDetails from './Pages/Post/PostDetails'
 import CreatePost from './Pages/Post/CreatePost'
 import PostEdit from './Pages/Post/PostEdit'
+import UserList from './Pages/Users/UserList'
 
 import Login from './Pages/Login'
 import Dashboard from './Pages/Dashboard'
@@ -37,7 +38,7 @@ function App() {
             .then(res => {
                 const persons = res.data;
                 // allUser = persons.result;
-                console.log(persons.data);
+                // console.log(persons.data);
                 setAuth(persons.data )
             }).catch(function (error) {
             // handle error
@@ -60,6 +61,9 @@ function App() {
                   </Route>
                   <Route exact path="/dashboard">
                       <Dashboard/>
+                  </Route>
+                  <Route exact path="/user-list">
+                      <UserList/>
                   </Route>
                   <Route exact path="/post-create">
                       <CreatePost/>
