@@ -215,7 +215,6 @@ export  const UserList = ()=>{
                 disabledClassName={"paginationDisabled"}
                 activeClassName={"paginationActive"}
                 initialPage={tempPage}
-
             />
 
         </div>

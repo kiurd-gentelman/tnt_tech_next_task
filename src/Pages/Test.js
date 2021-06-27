@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
-import {toast} from "react-toastify";
+// import {toast} from "react-toastify";
 import ReactPaginate from "react-paginate";
 
 export  const UserList = ()=>{

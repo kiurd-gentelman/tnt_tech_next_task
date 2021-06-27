@@ -86,7 +86,7 @@ export const PostDetails = (props) => {
     }
 
     // console.log(auth.id , post.user_id)
-    const displayComments= comments.map((comment) =>{
+    const displayComments = comments.map((comment) =>{
         return(
             <div key={comment.id}>
                 <ListGroup>
@@ -100,8 +100,6 @@ export const PostDetails = (props) => {
             </div>
         )
     } )
-
-
 
     return(
         <div>

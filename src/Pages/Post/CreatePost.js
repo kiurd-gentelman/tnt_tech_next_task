@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import {toast, ToastContainer} from "react-toastify";
 import React from "react";
 import axios from "axios";
-import PostDetails from "./PostDetails";
+// import PostDetails from "./PostDetails";
 import {Link , useHistory} from "react-router-dom";
 
 
