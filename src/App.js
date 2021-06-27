@@ -1,7 +1,7 @@
 
 import React, {useEffect, useState} from "react";
 import "./App.css";
-import {Route, Switch } from "react-router-dom";
+import {Route, Switch, useHistory} from "react-router-dom";
 import axios from "axios";
 
 // Components
@@ -22,6 +22,7 @@ import Dashboard from './Pages/Dashboard'
 
 
 function App() {
+    const history = useHistory();
     useEffect(() => {
         authUser();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,8 +43,10 @@ function App() {
                 setAuth(persons.data )
             }).catch(function (error) {
             // handle error
+
             console.log(error);
             setAuth(null )
+            history.push("/login");
         })
 
     }
