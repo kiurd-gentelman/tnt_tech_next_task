@@ -13,6 +13,13 @@ import ReactPaginate from "react-paginate";
 export  const UserList = ()=>{
     let tempPage = 0;
     const history = useHistory();
+    const [users, setUsers] = useState([]);
+    const [orderType, setOrderType] = useState(["asc", "desc"])
+    const [search, setSearch] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
+    const [usersPerPage, setUsersPerPage] = useState(parseInt(localStorage.getItem('perUserInJumpPage')))
+    const [jump, setJump] = useState(["1","3", "5" , "all"])
+
     useEffect(() => {
         console.log(localStorage.getItem('changeActivity'))
         localStorage.setItem('perUserInJumpPage' , "1")
@@ -20,19 +27,9 @@ export  const UserList = ()=>{
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const [users, setUsers] = useState([]);
     // const [ChangeActivity, setChangeActivity] = useState([]);
     const getAllUser =()=>{
 
-        // axios.get(`http://127.0.0.1:8000/api/user-list`,
-        //     { headers: {"Authorization" : `Bearer ${localStorage.getItem('token')}`} }
-        // ).then(res => {
-        //     const persons = res.data;
-        //     setUsers(persons.result )
-        // }).catch(function (error) {
-        //     console.log(error);
-        //     history.push("/login");
-        // });
         if (localStorage.getItem('changeActivity') != null){
             // console.log(localStorage.getItem('changeActivity'))
             setUsers(JSON.parse(localStorage.getItem('changeActivity')) )
@@ -52,33 +49,70 @@ export  const UserList = ()=>{
 
 
     /*--------------------------Order system-------------------*/
+    const [sorting , setSorting] = useState([]);
     const changeOrder=(event,data)=>{
         // console.log(event.target.value)
-        // console.log(data)
 
-        let formdata = {
-            order:event.target.value,
-            data :data
-        }
-        localStorage.setItem('orderBy', event.target.value);
-        localStorage.setItem('ColumnName', data);
-        axios.post('http://127.0.0.1:8000/api/user/order-list', formdata, {
-            headers: {
-                "Authorization" : `Bearer ${localStorage.getItem('token')}`
-            },
-        }).then(function (response) {
-            if (response.status === 200){
-                console.log(response);
-                setUsers(response.data.result )
-                localStorage.setItem('changeActivity', JSON.stringify(response.data.result))
+        // const [sorting , setSorting] = useState()
+        setSorting(data)
+        console.log(sorting)
+
+        // let formdata = {
+        //     order:event.target.value,
+        //     data :data
+        // }
+        // localStorage.setItem('orderBy', event.target.value);
+        // localStorage.setItem('ColumnName', data);
+        let computedComments = users;
+        // let order = computedComments.sort((a, b)=> {
+        //     console.log(a[sorting])
+        //     console.log(sorting)
+        //     // console.log(a.sorting)
+        //     if (a[sorting] < b[sorting]) {
+        //         return -1;
+        //     }
+        //     if (a[sorting] > b[sorting]) {
+        //         return 1;
+        //     }
+        //     return 0;
+        // });
+        // console.log(order)
+
+
+
+        if (data) {
+            if (sorting) {
+                const reversed = event.target.value === "asc" ? 1 : -1;
+                computedComments = computedComments.sort(
+                    (a, b) =>
+                        reversed * a[sorting].localeCompare(b[sorting])
+                );
             }
-        }).catch(function (error) {
-            console.log(error);
-            history.push("/login");
-        });
+        }
+        console.log(computedComments)
+
+        //
+
+
+        // localStorage.setItem('changeActivity', JSON.stringify(computedComments))
+
+        // axios.post('http://127.0.0.1:8000/api/user/order-list', formdata, {
+        //     headers: {
+        //         "Authorization" : `Bearer ${localStorage.getItem('token')}`
+        //     },
+        // }).then(function (response) {
+        //     if (response.status === 200){
+        //         console.log(response);
+        //         setUsers(response.data.result )
+        //         localStorage.setItem('changeActivity', JSON.stringify(response.data.result))
+        //     }
+        // }).catch(function (error) {
+        //     console.log(error);
+        //     history.push("/login");
+        // });
     }
 
-    const [orderType, setOrderType] = useState(["asc", "desc"])
+
 
     const displayOrderType= orderType.map((item)=>{
         return(
@@ -88,7 +122,7 @@ export  const UserList = ()=>{
 
     /*--------------------Search----------------*/
 
-    const [search, setSearch] = useState([]);
+
     const searchUser=(event)=>{
         setSearch(event.target.value)
     }
@@ -97,31 +131,42 @@ export  const UserList = ()=>{
         let formdata ={
             search: search
         }
+        let computedComments = users;
+        if (search) {
+            computedComments = computedComments.filter(
+                comment =>
+                    comment.name.toLowerCase().includes(search.toLowerCase()) ||
+                    comment.email.toLowerCase().includes(search.toLowerCase()) ||
+                    comment.website.toLowerCase().includes(search.toLowerCase())
+            );
+        }
+        console.log( computedComments);
+        setUsers(computedComments )
+        localStorage.setItem('changeActivity', JSON.stringify(computedComments))
 
-        axios.post('http://127.0.0.1:8000/api/user/search', formdata, {
-            headers: {
-                "Authorization" : `Bearer ${localStorage.getItem('token')}`
-            },
-        }).then(function (response) {
-            if (response.status === 200){
-                console.log(response);
-                setUsers(response.data.result )
-                // tempPage = 0
-                // console.log(typeof tempPage)
-                tempPage = parseInt(localStorage.setItem('initialPage',0))
-                // tempPage = parseInt(tempPage)
-                localStorage.setItem('changeActivity', JSON.stringify(response.data.result))
-            }
-        }).catch(function (error) {
-            console.log(error);
-            history.push("/login");
-        });
+        // axios.post('http://127.0.0.1:8000/api/user/search', formdata, {
+        //     headers: {
+        //         "Authorization" : `Bearer ${localStorage.getItem('token')}`
+        //     },
+        // }).then(function (response) {
+        //     if (response.status === 200){
+        //         console.log(response);
+        //         setUsers(response.data.result )
+        //         // tempPage = 0
+        //         // console.log(typeof tempPage)
+        //         tempPage = parseInt(localStorage.setItem('initialPage',0))
+        //         // tempPage = parseInt(tempPage)
+        //         localStorage.setItem('changeActivity', JSON.stringify(response.data.result))
+        //     }
+        // }).catch(function (error) {
+        //     console.log(error);
+        //     history.push("/login");
+        // });
     }
 
     /*-----------------------------Paginate---------------------------*/
 
-    const [pageNumber, setPageNumber] = useState(0);
-    const [usersPerPage, setUsersPerPage] = useState(parseInt(localStorage.getItem('perUserInJumpPage')))
+
     // console.log(pageNumber)
     // console.log(localStorage.getItem('initialPage'))
 
@@ -164,7 +209,7 @@ export  const UserList = ()=>{
 
     /*---------------------------------Page Jump-------------------------------*/
 
-    const [jump, setJump] = useState(["1","3", "5" , "all"])
+
 
     const displayJump= jump.map((item)=>{
         return(
