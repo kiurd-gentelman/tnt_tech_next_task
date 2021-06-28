@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 export const AllPost = (props) => {
 
     const [post, setPost] = useState([]);
-    const [visible, setVisible] = useState(1);
+    const [visible, setVisible] = useState(10);
 
     let allUser = '';
     useEffect(() => {
@@ -18,7 +18,7 @@ export const AllPost = (props) => {
     }, []);
 
     const loadDate = ({ selected }) => {
-        setVisible((prevValue)=>prevValue + 1);
+        setVisible((prevValue)=>prevValue + 10);
     };
 
 
@@ -27,7 +27,7 @@ export const AllPost = (props) => {
                 .then(res => {
                     const persons = res.data;
                     allUser = persons.result;
-                    console.log(allUser)
+                    // console.log(allUser)
                     setPost(allUser )
                 })
 
@@ -73,7 +73,10 @@ export const AllPost = (props) => {
         <div >
             <ol className = "list-group list-group-numbered" > { displayUsers } </ol>
             <div className="mt-3 w-100 d-flex justify-content-center">
-                <Button className="btn btn-sm btn-info" onClick={loadDate}>Load More</Button>
+                {(post.length >visible)?
+                    <Button className="btn btn-sm btn-info" onClick={loadDate}>Load More</Button> :''
+                }
+                {/*<Button className="btn btn-sm btn-info" onClick={loadDate}>Load More</Button>*/}
             </div>
 
         </div >

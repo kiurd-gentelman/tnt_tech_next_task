@@ -42,7 +42,7 @@ export const AllPost = () => {
             if (response.status === 200){
                 toast("registration complete")
                 history.push("/dashboard");
-                console.log(response);
+                // console.log(response);
             }
 
         }).catch(function (error) {
@@ -61,7 +61,7 @@ export const AllPost = () => {
                         <tr>
                             <td>
                                 <div className="ms-2 me-auto">
-                                    <span className="fw-bold">{post.title} . </span><span><sub>Author {post.author_id} .  posted in {post.created_at} </sub></span>
+                                    <span className="fw-bold">{post.title} . </span><span><sub> posted in {post.created_at} </sub></span>
                                     <div>{(post.description.length >200) ? post.description.substring(0,200):post.description}</div>
                                 </div>
                             </td>

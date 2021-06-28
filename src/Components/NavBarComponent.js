@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import { useHistory } from "react-router-dom";
@@ -29,7 +29,7 @@ export const NavBarComponent = (props) => {
         axios.post(`http://127.0.0.1:8000/api/logout`,
             { headers: {"Authorization" : `Bearer ${localStorage.getItem('token')}`} })
             .then(res => {
-                const persons = res.data;
+                // const persons = res.data;
                 // allUser = persons.result;
                 localStorage.setItem('token', null);
                 history.push("/");

@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ListGroup from 'react-bootstrap/ListGroup'
 import {toast, ToastContainer} from "react-toastify";
-import {map} from "react-bootstrap/ElementChildren";
+// import {map} from "react-bootstrap/ElementChildren";
 
 
 export const PostDetails = (props) => {
@@ -91,6 +91,7 @@ export const PostDetails = (props) => {
             <div key={comment.id}>
                 <ListGroup>
                     <ListGroup.Item variant="primary">{comment.comments }
+                        {/* eslint-disable-next-line eqeqeq */}
                         {(auth.id == comment.user_id)?
                             <Button className="float-right btn-sm btn-danger" onClick={ () => commentDelete(comment.id)}>Delete</Button>:
                             ''

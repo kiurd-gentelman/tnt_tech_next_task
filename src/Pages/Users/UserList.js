@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
-import {toast} from "react-toastify";
+// import {toast} from "react-toastify";
 import ReactPaginate from "react-paginate";
 
 export  const UserList = ()=>{
@@ -21,8 +21,9 @@ export  const UserList = ()=>{
     const [jump, setJump] = useState(["1","3", "5" , "all"])
 
     useEffect(() => {
-        console.log(localStorage.getItem('changeActivity'))
-        localStorage.setItem('perUserInJumpPage' , "1")
+        // console.log(localStorage.getItem('changeActivity'))
+        // localStorage.setItem('perUserInJumpPage' , "1")
+        // setUsers((prevValue)=>prevValue);
         getAllUser();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -49,67 +50,51 @@ export  const UserList = ()=>{
 
 
     /*--------------------------Order system-------------------*/
-    const [sorting , setSorting] = useState([]);
+    // const [sorting , setSorting] = useState([]);
     const changeOrder=(event,data)=>{
-        // console.log(event.target.value)
+
 
         // const [sorting , setSorting] = useState()
-        setSorting(data)
-        console.log(sorting)
-
-        // let formdata = {
-        //     order:event.target.value,
-        //     data :data
-        // }
-        // localStorage.setItem('orderBy', event.target.value);
-        // localStorage.setItem('ColumnName', data);
-        let computedComments = users;
-        // let order = computedComments.sort((a, b)=> {
-        //     console.log(a[sorting])
-        //     console.log(sorting)
-        //     // console.log(a.sorting)
-        //     if (a[sorting] < b[sorting]) {
-        //         return -1;
-        //     }
-        //     if (a[sorting] > b[sorting]) {
-        //         return 1;
-        //     }
-        //     return 0;
-        // });
-        // console.log(order)
-
-
-
-        if (data) {
-            if (sorting) {
-                const reversed = event.target.value === "asc" ? 1 : -1;
-                computedComments = computedComments.sort(
-                    (a, b) =>
-                        reversed * a[sorting].localeCompare(b[sorting])
-                );
-            }
-        }
-        console.log(computedComments)
-
+        // setSorting(data)
+        // console.log(sorting)
+        // console.log(event)
+        // let computedComments = users;
+        // console.log(data)
+        // console.log(event.target.value)
+        // if (sorting) {
+        //     const reversed = event.target.value === "asc" ? 1 : -1;
+        //     computedComments = computedComments.sort((a, b) => reversed * a[data].localeCompare(b[data]));
+        //     console.log('sorting',computedComments)
+        //     setUsers(computedComments );
+        //     localStorage.setItem('changeActivity', JSON.stringify(computedComments))
+        //     console.log('ok001',users)
+        //     history.push("/user-list");
         //
+        // }
+        //
+        // setUsers((prevValue)=>prevValue);
 
+        // console.log(computedComments)
 
-        // localStorage.setItem('changeActivity', JSON.stringify(computedComments))
+        let formdata = {
+            order:event.target.value,
+            data :data
+        }
 
-        // axios.post('http://127.0.0.1:8000/api/user/order-list', formdata, {
-        //     headers: {
-        //         "Authorization" : `Bearer ${localStorage.getItem('token')}`
-        //     },
-        // }).then(function (response) {
-        //     if (response.status === 200){
-        //         console.log(response);
-        //         setUsers(response.data.result )
-        //         localStorage.setItem('changeActivity', JSON.stringify(response.data.result))
-        //     }
-        // }).catch(function (error) {
-        //     console.log(error);
-        //     history.push("/login");
-        // });
+        axios.post('http://127.0.0.1:8000/api/user/order-list', formdata, {
+            headers: {
+                "Authorization" : `Bearer ${localStorage.getItem('token')}`
+            },
+        }).then(function (response) {
+            if (response.status === 200){
+                console.log('I try my best but It doesn\'t work, that\'s why this ajax firing . This is my 7 day\'s of react experiment. So please Forgive me for all the mistakes ');
+                setUsers(response.data.result )
+                localStorage.setItem('changeActivity', JSON.stringify(response.data.result))
+            }
+        }).catch(function (error) {
+            console.log(error);
+            history.push("/login");
+        });
     }
 
 
@@ -128,9 +113,6 @@ export  const UserList = ()=>{
     }
     const findSearchValue=()=>{
         localStorage.setItem('search', search);
-        let formdata ={
-            search: search
-        }
         let computedComments = users;
         if (search) {
             computedComments = computedComments.filter(
@@ -140,50 +122,20 @@ export  const UserList = ()=>{
                     comment.website.toLowerCase().includes(search.toLowerCase())
             );
         }
-        console.log( computedComments);
+        // console.log( computedComments);
         setUsers(computedComments )
         localStorage.setItem('changeActivity', JSON.stringify(computedComments))
 
-        // axios.post('http://127.0.0.1:8000/api/user/search', formdata, {
-        //     headers: {
-        //         "Authorization" : `Bearer ${localStorage.getItem('token')}`
-        //     },
-        // }).then(function (response) {
-        //     if (response.status === 200){
-        //         console.log(response);
-        //         setUsers(response.data.result )
-        //         // tempPage = 0
-        //         // console.log(typeof tempPage)
-        //         tempPage = parseInt(localStorage.setItem('initialPage',0))
-        //         // tempPage = parseInt(tempPage)
-        //         localStorage.setItem('changeActivity', JSON.stringify(response.data.result))
-        //     }
-        // }).catch(function (error) {
-        //     console.log(error);
-        //     history.push("/login");
-        // });
     }
 
     /*-----------------------------Paginate---------------------------*/
 
-
-    // console.log(pageNumber)
-    // console.log(localStorage.getItem('initialPage'))
-
     if (localStorage.getItem('initialPage') !== null) {
         tempPage = localStorage.getItem('initialPage')
-        console.log(tempPage)
+        // console.log(tempPage)
     }
     tempPage = parseInt(tempPage)
-    // console.log(typeof tempPage)
-    // const usersPerPage = 1;
-    // if(localStorage.getItem('perUserInJumpPage') != null) {
-    //     let temp_variable = localStorage.getItem('perUserInJumpPage');
-    //     setUsersPerPage(parseInt(temp_variable));
-    //     console.log(typeof usersPerPage)
-    // } else{
-    //     setUsersPerPage(1);
-    // }
+
 
     const pagesVisited = pageNumber * usersPerPage;
     const displayUsers = users.slice(pagesVisited, pagesVisited + usersPerPage).map((user) => {
@@ -200,7 +152,7 @@ export  const UserList = ()=>{
     const pageCount = Math.ceil(users.length / usersPerPage);
 
     const changePage = ({ selected }) => {
-        console.log(selected)
+        // console.log(selected)
         localStorage.setItem('initialPage', selected);
         setPageNumber(selected);
         // console.log(pageNumber)
@@ -217,9 +169,15 @@ export  const UserList = ()=>{
         )
     })
     const jumpChange=(event)=>{
-        console.log(event.target.value)
+        // console.log(event.target.value)
         localStorage.setItem('perUserInJumpPage',event.target.value)
         setUsersPerPage(event.target.value)
+        if (event.target.value == "all"){
+            localStorage.setItem('perUserInJumpPage',users.length)
+            setUsersPerPage(users.length)
+
+            // console.log(event.target.value)
+        }
     }
 
 

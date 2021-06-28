@@ -42,7 +42,7 @@ export const Login = ()=>{
                 console.log(error);
             });
     }
-    /*Registration*/
+    /*-------------Registration--------------*/
     let reg_name
     let reg_email
     let reg_password

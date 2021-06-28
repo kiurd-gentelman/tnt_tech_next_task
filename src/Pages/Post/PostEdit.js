@@ -68,14 +68,6 @@ export const PostDetails = () => {
         <div>
             <h2> Post Edit</h2>
             <Link className="btn btn-sm btn-success"  to="/dashboard" >Go to post</Link>
-            {/*<div className="card mt-5">*/}
-            {/*    <div className="card-body">*/}
-            {/*        <h5 className="card-title">{post.title}</h5>*/}
-            {/*        <p className="card-text">{post.description}</p>*/}
-            {/*        /!*<a href="#" className="card-link">Card link</a>*!/*/}
-            {/*        /!*<a href="#" className="card-link">Another link</a>*!/*/}
-            {/*    </div>*/}
-            {/*</div>*/}
 
             <div>
                 <div className="mt-5">
