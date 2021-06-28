@@ -14,6 +14,7 @@ import PostDetails from './Pages/Post/PostDetails'
 import CreatePost from './Pages/Post/CreatePost'
 import PostEdit from './Pages/Post/PostEdit'
 import UserList from './Pages/Users/UserList'
+import Profile from './Pages/Users/Profile'
 
 import Login from './Pages/Login'
 import Dashboard from './Pages/Dashboard'
@@ -43,7 +44,6 @@ function App() {
                 setAuth(persons.data )
             }).catch(function (error) {
             // handle error
-
             console.log(error);
             setAuth(null )
             history.push("/login");
@@ -70,6 +70,9 @@ function App() {
                   </Route>
                   <Route exact path="/post-create">
                       <CreatePost/>
+                  </Route>
+                  <Route  path="/profile/:user_id">
+                      <Profile auth={auth} />
                   </Route>
                   <Route exact path="/post-edit/:productId">
                       <PostEdit/>

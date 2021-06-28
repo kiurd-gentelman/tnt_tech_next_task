@@ -22,7 +22,10 @@ export const PostDetails = () => {
                 // allUser = persons.result;
                 setPostTitle(persons.result.title )
                 setPost(persons.result.description )
-            })
+            }).catch(function (error) {
+            console.log(error);
+            history.push("/login");
+        });
 
     }
 

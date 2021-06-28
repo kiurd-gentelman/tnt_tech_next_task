@@ -7,19 +7,27 @@ import { Link } from "react-router-dom";
 
 
 export const AllPost = (props) => {
+
+    const [post, setPost] = useState([]);
+    const [visible, setVisible] = useState(1);
+
     let allUser = '';
     useEffect(() => {
         getAllNotes();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const [post, setPost] = useState([]);
-    const [visible, setVisible] = useState(1);
+    const loadDate = ({ selected }) => {
+        setVisible((prevValue)=>prevValue + 1);
+    };
+
+
     const getAllNotes = () => {
             axios.get(`http://127.0.0.1:8000/api/all-post`)
                 .then(res => {
                     const persons = res.data;
                     allUser = persons.result;
+                    console.log(allUser)
                     setPost(allUser )
                 })
 
@@ -44,7 +52,7 @@ export const AllPost = (props) => {
                             <tr>
                                 <td>
                                     <div className="ms-2 me-auto">
-                                        <span className="fw-bold">{post.title} . </span><span><sub>Author {post.author_id} .  posted in {post.created_at} </sub></span>
+                                        <span className="fw-bold">{post.title} . </span><span><sub>Author: {post.user.name} .  posted in {post.created_at} </sub></span>
                                         <div>{(post.description.length >200) ? post.description.substring(0,200):post.description}</div>
                                     </div>
                                 </td>
@@ -59,17 +67,6 @@ export const AllPost = (props) => {
             </div>
         );
     });
-
-    // function Details() {
-    //     return <h2>Home</h2>;
-    // }
-
-
-    const loadDate = ({ selected }) => {
-        setVisible((prevValue)=>prevValue + 1);
-    };
-
-
 
 
     return (

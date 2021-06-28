@@ -4,9 +4,10 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import {useEffect, useState} from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
-// import {toast} from "react-toastify";
+import {toast} from "react-toastify";
 import ReactPaginate from "react-paginate";
 
 export  const UserList = ()=>{
@@ -14,6 +15,7 @@ export  const UserList = ()=>{
     const history = useHistory();
     useEffect(() => {
         console.log(localStorage.getItem('changeActivity'))
+        localStorage.setItem('perUserInJumpPage' , "1")
         getAllUser();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -117,7 +119,9 @@ export  const UserList = ()=>{
     }
 
     /*-----------------------------Paginate---------------------------*/
+
     const [pageNumber, setPageNumber] = useState(0);
+    const [usersPerPage, setUsersPerPage] = useState(parseInt(localStorage.getItem('perUserInJumpPage')))
     // console.log(pageNumber)
     // console.log(localStorage.getItem('initialPage'))
 
@@ -128,13 +132,20 @@ export  const UserList = ()=>{
     tempPage = parseInt(tempPage)
     // console.log(typeof tempPage)
     // const usersPerPage = 1;
-    const [usersPerPage, setUsersPerPage] = useState(1);
+    // if(localStorage.getItem('perUserInJumpPage') != null) {
+    //     let temp_variable = localStorage.getItem('perUserInJumpPage');
+    //     setUsersPerPage(parseInt(temp_variable));
+    //     console.log(typeof usersPerPage)
+    // } else{
+    //     setUsersPerPage(1);
+    // }
+
     const pagesVisited = pageNumber * usersPerPage;
     const displayUsers = users.slice(pagesVisited, pagesVisited + usersPerPage).map((user) => {
         return (
             <tr key={user.id}>
                 <td>1</td>
-                <td>{user.name}</td>
+                <td><h5><Link className="text-danger" to={`/profile/${user.id}`}>{user.name}</Link></h5></td>
                 <td>{user.email}</td>
                 <td>{user.website}</td>
             </tr>
@@ -162,8 +173,10 @@ export  const UserList = ()=>{
     })
     const jumpChange=(event)=>{
         console.log(event.target.value)
+        localStorage.setItem('perUserInJumpPage',event.target.value)
         setUsersPerPage(event.target.value)
     }
+
 
     return (
         <div>
@@ -215,7 +228,6 @@ export  const UserList = ()=>{
                 disabledClassName={"paginationDisabled"}
                 activeClassName={"paginationActive"}
                 initialPage={tempPage}
-
             />
 
         </div>
